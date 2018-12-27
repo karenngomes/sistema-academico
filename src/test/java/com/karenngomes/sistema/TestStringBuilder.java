@@ -12,7 +12,7 @@ public class TestStringBuilder {
 		 StringBuilder str = new StringBuilder();
 		 String result = str.juntaText("texto", "junto");
 		 
-		 assertEquals("texto junto", result, "nao foi");
+		 assertEquals("textojunto", result, "nao foi");
 	}
 	
 }

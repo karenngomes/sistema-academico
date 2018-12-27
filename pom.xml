@@ -9,8 +9,16 @@
   
   <properties>
        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-   </properties>
+    	
+	</properties>
    <dependencies>
+   		<!-- https://mvnrepository.com/artifact/com.yammer.dropwizard/dropwizard-core -->
+		<dependency>
+		    <groupId>com.yammer.dropwizard</groupId>
+		    <artifactId>dropwizard-core</artifactId>
+		    <version>0.6.2</version>
+		</dependency>
+   	
        <dependency>
            <groupId>org.junit.platform</groupId>
            <artifactId>junit-platform-engine</artifactId>
