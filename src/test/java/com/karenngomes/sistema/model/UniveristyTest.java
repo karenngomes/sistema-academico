@@ -2,9 +2,9 @@ package com.karenngomes.sistema.model;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class PersonTest {
+public class UniveristyTest {
 	
-	public void testConstructor() {
+	public void testUniversity() {
 		
 		assertThrows(NullPointerException.class, () -> new University(null));
 		assertThrows(IllegalArgumentException.class, () -> new University(""));

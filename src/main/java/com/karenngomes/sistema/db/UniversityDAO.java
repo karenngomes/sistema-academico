@@ -12,9 +12,9 @@ import io.dropwizard.hibernate.AbstractDAO;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class UniversityDao extends AbstractDAO<University> {
+public class UniversityDAO extends AbstractDAO<University> {
 
-	public UniversityDao(SessionFactory sessionFactory) {
+	public UniversityDAO(SessionFactory sessionFactory) {
 		super(sessionFactory);
 	}
 	
@@ -25,8 +25,8 @@ public class UniversityDao extends AbstractDAO<University> {
     }
     
     public List<University> list() throws HibernateException {
-        log.info("getting persons");
-        return super.list(query("from Person"));
+        log.info("getting universities");
+        return super.list(query("from University"));
     }
     
     @Override

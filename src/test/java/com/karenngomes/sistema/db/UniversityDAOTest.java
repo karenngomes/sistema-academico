@@ -14,20 +14,20 @@ import io.dropwizard.testing.junit5.DropwizardExtensionsSupport;
 import lombok.SneakyThrows;
 
 @ExtendWith(DropwizardExtensionsSupport.class)
-public class UniversityDaoTest {
+public class UniversityDAOTest {
 	
 	public DAOTestExtension dbTesting = DAOTestExtension.newBuilder()
             .addEntityClass(University.class)
             //.addEntityClass(University.class)
             .build();
     
-    private UniversityDao dao;
+    private UniversityDAO dao;
 
     @BeforeEach
     @SneakyThrows
     public void setUp() {
         System.out.println("setUp");
-        dao = new UniversityDao(dbTesting.getSessionFactory());
+        dao = new UniversityDAO(dbTesting.getSessionFactory());
     }
     
     @Test
@@ -35,7 +35,7 @@ public class UniversityDaoTest {
 
         System.out.println("testCRUD");
         
-        University u1 = new University("c1");
+        University u1 = new University("u1");
         
         University saved = dbTesting.inTransaction(() -> dao.persist(u1));
         
@@ -43,6 +43,6 @@ public class UniversityDaoTest {
         assertNotNull(saved.getId());
         assertEquals(u1.getName(), saved.getName());
 
-//        assertNotNull(null);
+        // assertNotNull(null);
     }
 }

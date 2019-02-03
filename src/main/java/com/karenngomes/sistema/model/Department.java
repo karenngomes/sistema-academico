@@ -1,12 +1,10 @@
 package com.karenngomes.sistema.model;
 
-import java.util.ArrayList;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 // import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -14,7 +12,7 @@ import lombok.Getter;
 @Entity
 @Getter
 //@EqualsAndHashCode
-public class University {
+public class Department {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -22,11 +20,13 @@ public class University {
 	
 	private String name;
 	
-	@OneToMany
-	ArrayList <Department> department = new ArrayList<Department>();
+	@OneToOne
+	Secretary graduate, posGraduate;
 	
-	public University(String name) {
+	public Department(String name, Secretary graduate, Secretary posGraduate) {
 		this.name = name;
+		this.graduate = graduate;
+		this.posGraduate = posGraduate;
 	}
 	
 	// add Equals and hash code
