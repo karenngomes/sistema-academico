@@ -7,8 +7,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-import com.karenngomes.sistema.utils.AcademicTypes;
-
 // import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
@@ -27,6 +25,10 @@ public class Professor {
 	
 	public Professor(String name) {
 		this.name = name;
+	}
+	
+	public void setSubject(Subject subject) {
+		this.subjects.add(subject);
 	}
 	
 	// add Equals and hash code
