@@ -29,9 +29,20 @@ public class Secretary {
 	private ArrayList <Course> courses = new ArrayList<Course>(); // it needs be checked if types are equals
 
 	
-	public Secretary(String name) {
+	public Secretary(String name, AcademicTypes type) {
 		this.name = name;
-		// need add type here
+		this.type = type;
+	}
+	
+	public void setCourse(Course course) {
+		AcademicTypes enumSecretaryType = this.getType();
+		
+		if(course.getType() != enumSecretaryType) {
+			System.out.println("Course type isn't equal to secretary type");
+		} else {
+			this.courses.add(course);
+		}
+		
 	}
 	
 	// add Equals and hash code
