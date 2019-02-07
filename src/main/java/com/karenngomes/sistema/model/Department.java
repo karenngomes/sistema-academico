@@ -21,12 +21,10 @@ public class Department {
 	private String name;
 	
 	@OneToOne
-	Secretary graduate, posGraduate;
+	Secretary underGraduate, postGraduate;
 	
-	public Department(String name, Secretary graduate, Secretary posGraduate) {
+	public Department(String name) {
 		this.name = name;
-		this.graduate = graduate;
-		this.posGraduate = posGraduate;
 	}
 	
 	// add Equals and hash code
