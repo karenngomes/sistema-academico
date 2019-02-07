@@ -26,7 +26,7 @@ public class Secretary {
 	private AcademicTypes type; //1 - undergraduate, 2 - postgraduate 
 	
 	@OneToMany
-	ArrayList <Course> courses = new ArrayList<Course>(); // it needs be checked if types are equals
+	private ArrayList <Course> courses = new ArrayList<Course>(); // it needs be checked if types are equals
 
 	
 	public Secretary(String name) {
