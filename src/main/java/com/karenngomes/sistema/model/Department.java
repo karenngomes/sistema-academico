@@ -6,6 +6,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
+import com.karenngomes.sistema.utils.AcademicTypes;
+
 // import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
@@ -17,16 +19,37 @@ public class Department {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	
+
 	private String name;
-	
+
 	@OneToOne
-	Secretary underGraduate, postGraduate;
-	
+	Secretary underGraduate = null, postGraduate = null;
+
 	public Department(String name) {
 		this.name = name;
 	}
-	
+
+	public void setSecretary(Secretary secretary) {
+		AcademicTypes enumType = secretary.getType();
+		// System.out.println(enumType);
+		switch (enumType) {
+		case UNDERGRADUATE:
+			if(this.underGraduate == null)
+				this.underGraduate = secretary;
+			else
+				System.out.println("secretary undergraduate already exists");
+			break;
+		case POSTGRADUATE:
+			if(this.postGraduate == null)
+				this.postGraduate = secretary;
+			else
+				System.out.println("secretary postgraduate already exists");
+			break;
+		default:
+			System.out.println("Invalid type");
+		}
+	}
+
 	// add Equals and hash code
-	
+
 }
