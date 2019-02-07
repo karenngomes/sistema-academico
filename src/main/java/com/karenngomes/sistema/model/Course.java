@@ -26,9 +26,20 @@ public class Course {
 	private ArrayList <Subject> subjects = new ArrayList<Subject>();
 	
 	
-	public Course(String name) {
+	public Course(String name, AcademicTypes type) {
 		this.name = name;
-		// need add type here
+		this.type = type;
+	}
+	
+	public void setSubject(Subject subject) {
+		AcademicTypes enumCourseType = this.getType();
+		
+		if(subject.getType() != enumCourseType) {
+			System.out.println("Subject type isn't equal to course type");
+		} else {
+			this.subjects.add(subject);
+		}
+		
 	}
 	
 	// add Equals and hash code
