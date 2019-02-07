@@ -1,5 +1,7 @@
 package com.karenngomes.sistema.model;
 
+import java.util.ArrayList;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -21,8 +23,8 @@ public class Course {
 	
 	private String name;
 	private AcademicTypes type; //1 - undergraduate, 2 - postgraduate 
+	private ArrayList <Subject> subjects = new ArrayList<Subject>();
 	
-
 	
 	public Course(String name) {
 		this.name = name;
