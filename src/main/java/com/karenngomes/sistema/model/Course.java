@@ -1,11 +1,14 @@
 package com.karenngomes.sistema.model;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 import com.karenngomes.sistema.utils.AcademicTypes;
 
@@ -23,12 +26,16 @@ public class Course {
 	
 	private String name;
 	private AcademicTypes type; //1 - undergraduate, 2 - postgraduate 
-	private ArrayList <Subject> subjects = new ArrayList<Subject>();
-	
-	
+	@OneToMany
+	private Set <Subject> subjects = new HashSet<Subject>();
+		
 	public Course(String name, AcademicTypes type) {
 		this.name = name;
 		this.type = type;
+	}
+	
+	public void setName(String name) {
+		this.name = name;
 	}
 	
 	public void setSubject(Subject subject) {
