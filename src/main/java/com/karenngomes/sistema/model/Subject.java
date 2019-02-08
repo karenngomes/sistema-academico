@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 import com.karenngomes.sistema.utils.AcademicTypes;
 
@@ -23,16 +24,41 @@ public class Subject {
 	private String code;
 	private int credits = 0;
 	private AcademicTypes type; // 1 - undergraduate, 2 - postgraduate
-	private Course couse;
+	
+	@OneToOne
+	private Course course;
+	@OneToOne
 	private Professor professor;
 
-	public Subject(String name, String code, int credits, AcademicTypes type, Course couse, Professor professor) {
-		super();
+	public Subject(String name, String code, AcademicTypes type, Course course) {
 		this.name = name;
 		this.code = code;
-		this.credits = credits;
 		this.type = type;
-		this.couse = couse;
+		this.course = course;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
+	}
+
+	public void setCredits(int credits) {
+		this.credits = credits;
+	}
+
+	/*
+	public void setType(AcademicTypes type) {
+		this.type = type;
+	}*/
+
+	public void setCourse(Course course) {
+		this.course = course;
+	}
+
+	public void setProfessor(Professor professor) {
 		this.professor = professor;
 	}
 
