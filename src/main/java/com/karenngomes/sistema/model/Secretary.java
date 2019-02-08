@@ -1,6 +1,8 @@
 package com.karenngomes.sistema.model;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -26,12 +28,15 @@ public class Secretary {
 	private AcademicTypes type; //1 - undergraduate, 2 - postgraduate 
 	
 	@OneToMany
-	private ArrayList <Course> courses = new ArrayList<Course>(); // it needs be checked if types are equals
+	private Set <Course> courses = new HashSet<Course>(); // it needs be checked if types are equals
 
-	
 	public Secretary(String name, AcademicTypes type) {
 		this.name = name;
 		this.type = type;
+	}
+	
+	public void setName(String name) {
+		this.name = name;
 	}
 	
 	public void setCourse(Course course) {
@@ -44,7 +49,7 @@ public class Secretary {
 		}
 		
 	}
-	
+
 	// add Equals and hash code
 	
 }
