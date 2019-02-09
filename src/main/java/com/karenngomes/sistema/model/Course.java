@@ -14,6 +14,7 @@ import com.karenngomes.sistema.utils.AcademicTypes;
 
 // import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Getter
@@ -24,6 +25,7 @@ public class Course {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
+	@Setter
 	private String name;
 	private AcademicTypes type; //1 - undergraduate, 2 - postgraduate 
 	@OneToMany
@@ -32,10 +34,6 @@ public class Course {
 	public Course(String name, AcademicTypes type) {
 		this.name = name;
 		this.type = type;
-	}
-	
-	public void setName(String name) {
-		this.name = name;
 	}
 	
 	public void setSubject(Subject subject) {

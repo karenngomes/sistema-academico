@@ -1,10 +1,16 @@
 package com.karenngomes.sistema.model;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.BeforeClass;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import lombok.SneakyThrows;
+
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
@@ -16,31 +22,34 @@ public class UniversityTest {
 	private static Validator validator;
 
 	@BeforeClass
-	public static void setUp() {
+	@BeforeEach
+	@SneakyThrows
+	public void setUp() {
 		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
 		validator = factory.getValidator();
 	}
 
 	@Test
 	public void testUniversityNameSize() {
-
-		//assertThrows(NullPointerException.class, () -> new University("k"));
-		// assertThrows(IllegalArgumentException.class, () -> new University(""));
-
-		University u1 = new University("kaaaa");
+		University u1 = new University("u1");
 
 		Set<ConstraintViolation<University>> constraintViolations = validator.validate(u1);
 
-		//assertEquals(1, constraintViolations.size());
-		//assertEquals("Size must be between 4 and 50", constraintViolations.iterator().next().getMessage());
+		assertEquals(1, constraintViolations.size());
+		assertEquals("The field must be at least 4 characters", constraintViolations.iterator().next().getMessage());
 
-		// University u1 = new University("k");
+	}
+	
+	
+	@Test
+	public void testUniversityNameSize002() {
+		University u = new University("u2adsjfhadsjbfajodbgajdgbaldfjgbajfhbgauyrhbandblandsbfajbdshfajsj");
 
-		// todo: vai ser aceito com uma letra?
+		Set<ConstraintViolation<University>> constraintViolations = validator.validate(u);
+	
+		assertEquals("The field must be less than 20 characters", constraintViolations.iterator().next().getMessage());
+			
 
-		// University u2 = new University("karen");
-
-		// assertEquals("k", u1.getName());
 	}
 
 }

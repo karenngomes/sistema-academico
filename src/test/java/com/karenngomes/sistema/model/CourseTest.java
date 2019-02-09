@@ -17,12 +17,12 @@ public class CourseTest {
 		Secretary course = new Secretary("Undergraduate secretary", courseType);
 		
 		Course subject1 = new Course("Computer science", subjectType);
-		Course subject2 = new Course("Computer engineering", AcademicTypes.UNDERGRADUATE);
+		Course subject2 = new Course("Computer engineering", AcademicTypes.POSTGRADUATE);
 		
 		course.setCourse(subject1);
 		course.setCourse(subject2);
 		
-		assertThat(course.getCourses(), hasSize(2));
+		assertThat(course.getCourses(), hasSize(1));
 		
 	}
 }

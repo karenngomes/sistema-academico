@@ -1,7 +1,7 @@
 package com.karenngomes.sistema.db;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.ArrayList;
 
 import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
@@ -23,18 +23,46 @@ public class DepartmentDAO extends AbstractDAO<Department> {
         log.info("getting person: id={}", id);
         return super.get(id);
     }
+	
+	public Department getById(Long id) {
+		return currentSession().find(Department.class, id);
+	}
     
-    public List<Department> list() throws HibernateException {
+    public ArrayList<Department> findAll() throws HibernateException {
         log.info("getting departments");
-        return super.list(query("from Department"));
+        return (ArrayList<Department>) super.list(query("from Department"));
     }
     
     @Override
     public Department persist(Department entity) throws HibernateException {
         return super.persist(entity);
     }
+
+	public void update(Department d) {
+		try {
+			currentSession().getTransaction().begin();
+			d = currentSession().find(Department.class, d.getId());
+			currentSession().merge(d);
+			currentSession().getTransaction().commit();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			currentSession().getTransaction().rollback();
+		}
+	}
+
+	public Department delete(Department d) {
+		try {
+			currentSession().getTransaction().begin();
+			d = currentSession().find(Department.class, d.getId());
+			currentSession().remove(d);
+			currentSession().getTransaction().commit();
+			return d;
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			currentSession().getTransaction().rollback();
+			return null;
+		}
+
+	}
     
-    public List<Object> byUniverty(Department d) {
-    	return null;
-    }
 }

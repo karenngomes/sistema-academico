@@ -1,6 +1,7 @@
 package com.karenngomes.sistema.db;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.HibernateException;
@@ -19,43 +20,50 @@ public class UniversityDAO extends AbstractDAO<University> {
 	}
 
 	@Override
-	public University get(Serializable id) throws HibernateException { // findById
-		log.info("getting person: id={}", id);
+	public University get(Serializable id) throws HibernateException {
+		log.info("getting university: id={}", id);
 		return super.get(id);
 	}
 
-	public List<University> list() throws HibernateException { // findAll
+	public University getById(Long id) {
+		return currentSession().find(University.class, id);
+	}
+
+	public ArrayList<University> findAll() throws HibernateException {
 		log.info("getting universities");
-		return super.list(query("from University"));
+		return (ArrayList<University>) super.list(query("from University"));
 	}
 
 	@Override
 	public University persist(University entity) throws HibernateException {
 		return super.persist(entity);
 	}
-	
-	
+
 	public void update(University university) {
 		try {
 			currentSession().getTransaction().begin();
 			university = currentSession().find(University.class, university.getId());
-			currentSession().update(university);
+			System.out.println(university.getId());
+			University u = (University) currentSession().merge(university);
+			System.out.println(u.getId());
 			currentSession().getTransaction().commit();
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			currentSession().getTransaction().rollback();
 		}
 	}
-	
-	public void delete(University university)  {
+
+	public University delete(University university) {
 		try {
 			currentSession().getTransaction().begin();
 			university = currentSession().find(University.class, university.getId());
 			currentSession().remove(university);
 			currentSession().getTransaction().commit();
+			return university;
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			currentSession().getTransaction().rollback();
+			return null;
 		}
 
 	}

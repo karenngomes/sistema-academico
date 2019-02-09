@@ -35,11 +35,9 @@ public class DepartmentTest {
 	public void testDepartmentName() {
 
 		Department department1 = new Department("I");
-		Department department2 = new Department("");
 
 		Set<ConstraintViolation<Department>> constraintViolations = validator.validate(department1);
-		// constraintViolations = validator.validate(department2);
-
+		
 		assertEquals(1, constraintViolations.size());
 		assertEquals("The field must be at least 2 characters", constraintViolations.iterator().next().getMessage());
 

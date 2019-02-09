@@ -38,7 +38,10 @@ public class Department {
 	public void setName(String name) {
 		this.name = name;
 	}
-
+	
+	public String getName() {
+		return this.name;
+	}
 	public void setSecretary(Secretary secretary) {
 		AcademicTypes enumType = secretary.getType();
 		// System.out.println(enumType);
