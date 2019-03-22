@@ -1,7 +1,7 @@
 package com.karenngomes.sistema.db;
 
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.util.List;
 
 import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
@@ -28,9 +28,9 @@ public class DepartmentDAO extends AbstractDAO<Department> {
 		return currentSession().find(Department.class, id);
 	}
     
-    public ArrayList<Department> findAll() throws HibernateException {
+    public List<Department> findAll() throws HibernateException {
         log.info("getting departments");
-        return (ArrayList<Department>) super.list(query("from Department"));
+        return super.list(query("from Department"));
     }
     
     @Override

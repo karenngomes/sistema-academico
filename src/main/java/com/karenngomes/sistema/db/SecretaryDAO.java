@@ -1,7 +1,7 @@
 package com.karenngomes.sistema.db;
 
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.util.List;
 
 import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
@@ -28,9 +28,9 @@ public class SecretaryDAO extends AbstractDAO<Secretary> {
 		return currentSession().find(Secretary.class, id);
 	}
 	
-	public ArrayList<Secretary> findAll() throws HibernateException {
+	public List<Secretary> findAll() throws HibernateException {
 		log.info("getting secretaries");
-		return (ArrayList<Secretary>) super.list(query("from Secretary"));
+		return super.list(query("from Secretary"));
 	}
 
 	@Override

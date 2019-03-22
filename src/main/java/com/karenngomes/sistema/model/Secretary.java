@@ -1,6 +1,5 @@
 package com.karenngomes.sistema.model;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -9,11 +8,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.validation.constraints.NotNull;
 
 import com.karenngomes.sistema.utils.AcademicTypes;
 
-// import lombok.EqualsAndHashCode;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 

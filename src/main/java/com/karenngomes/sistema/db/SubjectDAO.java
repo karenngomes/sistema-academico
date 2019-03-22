@@ -1,7 +1,7 @@
 package com.karenngomes.sistema.db;
 
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.util.List;
 
 import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
@@ -30,9 +30,9 @@ public class SubjectDAO extends AbstractDAO<Subject> {
 		return currentSession().find(Subject.class, id);
 	}
     
-    public ArrayList<Subject> findAll() throws HibernateException {
+    public List<Subject> findAll() throws HibernateException {
         log.info("getting subjects");
-        return (ArrayList<Subject>) super.list(query("from Subject"));
+        return super.list(query("from Subject"));
     }
     
     @Override

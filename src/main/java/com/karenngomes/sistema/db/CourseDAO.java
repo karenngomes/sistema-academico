@@ -1,7 +1,6 @@
 package com.karenngomes.sistema.db;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.HibernateException;
@@ -31,9 +30,9 @@ public class CourseDAO extends AbstractDAO<Course> {
 		return currentSession().find(Course.class, id);
 	}
     
-    public ArrayList<Course> findAll() throws HibernateException {
+    public List<Course> findAll() throws HibernateException {
         log.info("getting courses");
-        return (ArrayList<Course>) super.list(query("from Course"));
+        return super.list(query("from Course"));
     }
     
     @Override
