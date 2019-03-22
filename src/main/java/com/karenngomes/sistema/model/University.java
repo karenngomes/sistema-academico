@@ -38,23 +38,4 @@ public class University {
         this.departments.add(department);
     }
 
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((departments == null) ? 0 : departments.hashCode());
-        result = prime * result + ((name == null) ? 0 : name.hashCode());
-        return result;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (obj instanceof University) {
-            University other = (University) obj;
-            return (other.getName().equals(this.getName()) && other.getDepartments().equals(this.getDepartments()));
-        }
-        return false;
-
-    }
-
 }
