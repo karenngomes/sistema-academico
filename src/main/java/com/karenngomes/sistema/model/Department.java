@@ -11,11 +11,12 @@ import javax.validation.constraints.Size;
 import com.karenngomes.sistema.utils.AcademicTypes;
 
 // import lombok.EqualsAndHashCode;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
 @Entity
 @Getter
-//@EqualsAndHashCode
+@EqualsAndHashCode(of = {"id"})
 public class Department {
 
 	@Id
@@ -62,7 +63,5 @@ public class Department {
 			System.out.println("Invalid type");
 		}
 	}
-
-	// add Equals and hash code
 
 }

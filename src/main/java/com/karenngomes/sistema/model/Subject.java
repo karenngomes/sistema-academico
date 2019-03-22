@@ -9,59 +9,53 @@ import javax.persistence.OneToOne;
 import com.karenngomes.sistema.utils.AcademicTypes;
 
 // import lombok.EqualsAndHashCode;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
 @Entity
 @Getter
-//@EqualsAndHashCode
+@EqualsAndHashCode(of = {"id"})
 public class Subject {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
-	private String name;
-	private String code;
-	private int credits = 0;
-	private AcademicTypes type; // 1 - undergraduate, 2 - postgraduate
-	
-	@OneToOne
-	private Course course;
-	@OneToOne
-	private Professor professor;
+    private String name;
+    private String code;
+    private int credits = 0;
+    private AcademicTypes type; // 1 - undergraduate, 2 - postgraduate
 
-	public Subject(String name, String code, AcademicTypes type, Course course) {
-		this.name = name;
-		this.code = code;
-		this.type = type;
-		this.course = course;
-	}
+    @OneToOne
+    private Course course;
+    @OneToOne
+    private Professor professor;
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public Subject(String name, String code, AcademicTypes type, Course course) {
+        this.name = name;
+        this.code = code;
+        this.type = type;
+        this.course = course;
+    }
 
-	public void setCode(String code) {
-		this.code = code;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public void setCredits(int credits) {
-		this.credits = credits;
-	}
+    public void setCode(String code) {
+        this.code = code;
+    }
 
-	/*
-	public void setType(AcademicTypes type) {
-		this.type = type;
-	}*/
+    public void setCredits(int credits) {
+        this.credits = credits;
+    }
 
-	public void setCourse(Course course) {
-		this.course = course;
-	}
+    public void setCourse(Course course) {
+        this.course = course;
+    }
 
-	public void setProfessor(Professor professor) {
-		this.professor = professor;
-	}
-
-	// add Equals and hash code
+    public void setProfessor(Professor professor) {
+        this.professor = professor;
+    }
 
 }

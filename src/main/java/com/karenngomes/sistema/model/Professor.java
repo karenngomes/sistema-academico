@@ -11,11 +11,12 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 // import lombok.EqualsAndHashCode;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
 @Entity
 @Getter
-//@EqualsAndHashCode
+@EqualsAndHashCode(of = {"id"})
 public class Professor {
 
 	@Id
@@ -44,7 +45,5 @@ public class Professor {
 	public void setSubject(Subject subject) {
 		this.subjects.add(subject);
 	}
-
-	// add Equals and hash code
 
 }
