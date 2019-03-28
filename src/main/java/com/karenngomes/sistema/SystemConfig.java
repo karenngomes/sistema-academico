@@ -9,16 +9,17 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 @Getter
 public class SystemConfig extends Configuration {
 
-	@NotEmpty
-    private String template;
-
-    @NotEmpty
-    private String defaultName = "Stranger";
-    
     @Valid
     @NotNull
-    private DataSourceFactory database = new DataSourceFactory();
+    private DataSourceFactory dataSourceFactory = new DataSourceFactory();
+    
+    @JsonProperty("database")
+    public DataSourceFactory getDataSourceFactory() {
+        return dataSourceFactory;
+    }
 }

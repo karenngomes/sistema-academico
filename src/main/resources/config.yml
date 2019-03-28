@@ -1,19 +1,17 @@
-template: Karen
-
-server:
-  type: simple
-  applicationContextPath: /academico
-  adminContextPath: /admin
-  connector:
-    type: http
-    port: 3000
+#server:
+ # type: simple
+  #applicationContextPath: /application
+ # adminContextPath: /admin
+  #connector:
+   # type: http
+    #port: 3001
 
 logging:
   level: INFO
   loggers:
+    com.karenngomes: DEBUG
     org.hibernate: WARN
     io.dropwizard: INFO
-    br.ufal.ic: TRACE
     org.eclipse.jetty.servlets: INFO
 
 
