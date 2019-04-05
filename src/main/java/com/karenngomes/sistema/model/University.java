@@ -1,7 +1,5 @@
 package com.karenngomes.sistema.model;
 
-import java.util.HashSet;
-import java.util.Set;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -21,21 +19,15 @@ public class University {
     private Long id;
 
     @NotNull
-
     @List({@Length(min = 4, message = "The field must be at least 4 characters"),
             @Length(max = 20, message = "The field must be less than 20 characters")})
     @Setter
     private String name;
 
-    @OneToMany(cascade = {CascadeType.ALL})
-    private Set<Department> departments = new HashSet<Department>();
-
     public University(String name) {
         this.name = name;
     }
 
-    public void setDepartment(Department department) {
-        this.departments.add(department);
-    }
+    
 
 }

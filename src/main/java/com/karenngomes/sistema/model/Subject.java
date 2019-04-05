@@ -1,61 +1,106 @@
 package com.karenngomes.sistema.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumns;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.karenngomes.sistema.utils.AcademicTypes;
 
-// import lombok.EqualsAndHashCode;
+import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Getter
-@EqualsAndHashCode(of = {"id"})
+@Setter
+@EqualsAndHashCode(of = { "id" })
+@RequiredArgsConstructor(access = AccessLevel.PROTECTED)
 public class Subject {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id;
 
-    private String name;
-    private String code;
-    private int credits = 0;
-    private AcademicTypes type; // 1 - undergraduate, 2 - postgraduate
+	@NotNull
+	private String name;
 
-    @OneToOne
-    private Course course;
-    @OneToOne
-    private Professor professor;
+	@NotNull
+	@Column(unique = true)
+	private String code;
 
-    public Subject(String name, String code, AcademicTypes type, Course course) {
-        this.name = name;
-        this.code = code;
-        this.type = type;
-        this.course = course;
-    }
+	private Integer credits = 0, requiredCredits = 0;
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	@NotNull(message = "Type can't be null")
+	private AcademicTypes type; // 1 - undergraduate, 2 - postgraduate
 
-    public void setCode(String code) {
-        this.code = code;
-    }
+	@JsonIgnore
+	@ManyToOne(cascade = CascadeType.ALL)
+	private Course course;
 
-    public void setCredits(int credits) {
-        this.credits = credits;
-    }
+	@ManyToOne
+	private Professor professor;
 
-    public void setCourse(Course course) {
-        this.course = course;
-    }
+	@ManyToMany
+	@JoinTable(name = "required_subjects", joinColumns = @JoinColumn(name = "subject_id"), inverseJoinColumns = @JoinColumn(name = "required_subjects_id"))
+	private List<Subject> requiredSubjects = new ArrayList<Subject>();
 
-    public void setProfessor(Professor professor) {
-        this.professor = professor;
-    }
+	// @ElementCollection
+	// List<String> requiredSubjects;
+
+	/*
+	 * @ElementCollection List<Long> completedStudents;
+	 */
+
+	@ManyToMany
+	/*
+	 * @JoinTable( name = "completed_students", joinColumns = @JoinColumn(name =
+	 * "subject_id"), inverseJoinColumns = @JoinColumn(name = "enrollment_id"))
+	 */
+	private List<Enrollment> completedStudents = new ArrayList<Enrollment>();
+
+	@ManyToMany
+	private List<Enrollment> enrollments = new ArrayList<Enrollment>();
+
+	/*
+	 * public Subject(String name, String code, AcademicTypes type, Integer credits,
+	 * Integer requiredCredits, List<String> requiredDisciplines) { this.name =
+	 * name; this.code = code; this.type = type; this.credits = credits != null ?
+	 * credits : 0; this.requiredCredits = requiredCredits != null ? requiredCredits
+	 * : 0; this.requiredSubjects = requiredSubjects != null ? requiredSubjects :
+	 * new ArrayList<>(); this.students = new ArrayList<>(); }
+	 */
+	public boolean verifyStudentHasRequiredSubject(Enrollment enrollment) {
+		return enrollment.getCompletedSubjects().containsAll(requiredSubjects);
+	}
+
+	/*
+	 * public boolean addCompletedEnrollment(Enrollment enrollment) {
+	 * if(!this.completedStudents.contains(enrollment.getId())) return
+	 * this.students.add(enrollment.getId()); return false; }
+	 * 
+	 * 
+	 * public boolean removeStudent(Enrollment enrollment) { boolean isDeleted =
+	 * this.students.remove(enrollment.getId());
+	 * 
+	 * if(isDeleted) this.completedStudents.add(enrollment.getId());
+	 * 
+	 * return isDeleted; }
+	 */
 
 }

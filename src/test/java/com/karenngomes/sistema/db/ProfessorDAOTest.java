@@ -44,7 +44,7 @@ public class ProfessorDAOTest {
 		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
 		validator = factory.getValidator();
 	}
-
+/*
 	@Test
 	public void testCreate() {
 
@@ -117,5 +117,5 @@ public class ProfessorDAOTest {
 		assertThat(dao.findAll(), not(hasItem(deletedDep3)));
 
 	}
-
+*/
 }

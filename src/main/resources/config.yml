@@ -6,6 +6,9 @@
    # type: http
     #port: 3001
 
+server:
+  registerDefaultExceptionMappers: false
+
 logging:
   level: INFO
   loggers:

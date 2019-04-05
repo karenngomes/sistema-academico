@@ -4,21 +4,27 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import com.karenngomes.sistema.utils.AcademicTypes;
 
+import lombok.AccessLevel;
 // import lombok.EqualsAndHashCode;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Getter
+@Setter
 @EqualsAndHashCode(of = {"id"})
+@RequiredArgsConstructor(access = AccessLevel.PROTECTED)
 public class Department {
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -31,38 +37,10 @@ public class Department {
     Secretary underGraduate;
     @OneToOne
     Secretary postGraduate;
-
-    public Department(String name) {
-        this.name = name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getName() {
-        return this.name;
-    }
-
-    public void setSecretary(Secretary secretary) {
-        AcademicTypes enumType = secretary.getType();
-        // System.out.println(enumType);
-        switch (enumType) {
-            case UNDERGRADUATE:
-                if (this.underGraduate == null)
-                    this.underGraduate = secretary;
-                else
-                    System.out.println("secretary undergraduate already exists");
-                break;
-            case POSTGRADUATE:
-                if (this.postGraduate == null)
-                    this.postGraduate = secretary;
-                else
-                    System.out.println("secretary postgraduate already exists");
-                break;
-            default:
-                System.out.println("Invalid type");
-        }
-    }
+    
+    @ManyToOne
+    @NotNull(message = "Must be add a University")
+    private University university;
+    
 
 }

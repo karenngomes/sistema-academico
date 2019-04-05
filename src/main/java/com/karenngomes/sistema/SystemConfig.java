@@ -7,8 +7,6 @@ import lombok.Getter;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
-import org.hibernate.validator.constraints.NotEmpty;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Getter
@@ -16,10 +14,11 @@ public class SystemConfig extends Configuration {
 
     @Valid
     @NotNull
-    private DataSourceFactory dataSourceFactory = new DataSourceFactory();
+    private DataSourceFactory database = new DataSourceFactory();
     
     @JsonProperty("database")
-    public DataSourceFactory getDataSourceFactory() {
-        return dataSourceFactory;
+    public DataSourceFactory getDatabase() {
+        return database;
     }
+
 }

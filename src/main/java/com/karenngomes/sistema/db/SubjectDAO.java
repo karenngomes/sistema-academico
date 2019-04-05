@@ -6,9 +6,7 @@ import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
 
-import com.karenngomes.sistema.model.Course;
 import com.karenngomes.sistema.model.Subject;
-import com.karenngomes.sistema.model.University;
 
 import io.dropwizard.hibernate.AbstractDAO;
 import lombok.extern.slf4j.Slf4j;
@@ -25,10 +23,6 @@ public class SubjectDAO extends AbstractDAO<Subject> {
         log.info("getting person: id={}", id);
         return super.get(id);
     }
-	
-	public Subject getById(Long id) {
-		return currentSession().find(Subject.class, id);
-	}
     
     public List<Subject> findAll() throws HibernateException {
         log.info("getting subjects");

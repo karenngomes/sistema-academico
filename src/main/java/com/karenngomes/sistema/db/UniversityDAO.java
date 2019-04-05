@@ -23,11 +23,11 @@ public class UniversityDAO extends AbstractDAO<University> {
 		log.info("getting university: id={}", id);
 		return super.get(id);
 	}
-
+/*
 	public University getById(Long id) {
 		return currentSession().find(University.class, id);
 	}
-
+*/
 	public List<University> findAll() throws HibernateException {
 		log.info("getting universities");
 		return super.list(query("from University"));

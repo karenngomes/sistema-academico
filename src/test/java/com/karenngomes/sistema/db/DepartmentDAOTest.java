@@ -44,17 +44,17 @@ public class DepartmentDAOTest {
 		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
 		validator = factory.getValidator();
 	}
-
+/*
 	@Test
 	public void testCreate() {
 
-		Department u1 = new Department("IC");
+		//Department u1 = new Department("IC");
 
-		Department savedDep1 = dbTesting.inTransaction(() -> dao.persist(u1));
+		//Department savedDep1 = dbTesting.inTransaction(() -> dao.persist(u1));
 
-		assertNotNull(savedDep1);
-		assertNotNull(savedDep1.getId());
-		assertEquals(u1.getName(), savedDep1.getName());
+		//assertNotNull(savedDep1);
+		//assertNotNull(savedDep1.getId());
+		//assertEquals(u1.getName(), savedDep1.getName());
 
 	}
 
@@ -85,11 +85,9 @@ public class DepartmentDAOTest {
 	public void testFindAll() {
 
 		System.out.println("test find all");
-
 		Department d1 = new Department("IC");
 		Department d2 = new Department("IF");
 		Department d3 = new Department("IM");
-
 		Department savedDep1 = dbTesting.inTransaction(() -> dao.persist(d1));
 		Department savedDep2 = dbTesting.inTransaction(() -> dao.persist(d2));
 		Department savedDep3 = dbTesting.inTransaction(() -> dao.persist(d3));
@@ -117,4 +115,5 @@ public class DepartmentDAOTest {
 		assertThat(dao.findAll(), not(hasItem(deletedDep3)));
 
 	}
+	*/
 }
