@@ -20,11 +20,9 @@ import java.util.List;
 public class Student extends Person {
     @Setter
     private Integer credits = 0;
+
     
-    // @ElementCollection
-    // private List<String> completedSubjects = new ArrayList<String>();
-    
-    public Student(String firstName, String lastName, Integer credits, List<Subject> completedSubjects) {
+    public Student(String firstName, String lastName) {
     	this.credits = credits != null ? credits : 0;
     }
 

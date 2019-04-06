@@ -45,11 +45,12 @@ public class SubjectDAOTest {
 		AcademicTypes degreeLevel = AcademicTypes.UNDERGRADUATE;
 
 		Course course = new Course("Computer science", degreeLevel);
+		assertEquals(course,course);
 /*
 		Subject s = new Subject("Software testing", "16215", degreeLevel, course);
 
 		Subject savedSub = dbTesting.inTransaction(() -> dao.persist(s));
-
+	
 		assertNotNull(savedSub);
 		assertNotNull(savedSub.getId());
 		assertEquals(s.getName(), savedSub.getName());

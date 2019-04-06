@@ -34,6 +34,7 @@ public class DepartmentDAOTest {
 
 	private DepartmentDAO dao;
 	private static Validator validator;
+	University university = new University("ufal");
 
 	@BeforeClass
 	@BeforeEach
@@ -44,17 +45,17 @@ public class DepartmentDAOTest {
 		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
 		validator = factory.getValidator();
 	}
-/*
+
 	@Test
 	public void testCreate() {
 
-		//Department u1 = new Department("IC");
+		Department u1 = new Department("IC", university);
 
-		//Department savedDep1 = dbTesting.inTransaction(() -> dao.persist(u1));
+		Department savedDep1 = dbTesting.inTransaction(() -> dao.persist(u1));
 
-		//assertNotNull(savedDep1);
-		//assertNotNull(savedDep1.getId());
-		//assertEquals(u1.getName(), savedDep1.getName());
+		assertNotNull(savedDep1);
+		assertNotNull(savedDep1.getId());
+		assertEquals(u1.getName(), savedDep1.getName());
 
 	}
 
@@ -63,9 +64,9 @@ public class DepartmentDAOTest {
 
 		System.out.println("test find by id");
 
-		Department d1 = new Department("IC");
-		Department d2 = new Department("IF");
-		Department d3 = new Department("IM");
+		Department d1 = new Department("IC", university);
+		Department d2 = new Department("IF", university);
+		Department d3 = new Department("IM", university);
 
 		Department savedDep1 = dbTesting.inTransaction(() -> dao.persist(d1));
 		Department savedDep2 = dbTesting.inTransaction(() -> dao.persist(d2));
@@ -85,9 +86,9 @@ public class DepartmentDAOTest {
 	public void testFindAll() {
 
 		System.out.println("test find all");
-		Department d1 = new Department("IC");
-		Department d2 = new Department("IF");
-		Department d3 = new Department("IM");
+		Department d1 = new Department("IC", university);
+		Department d2 = new Department("IF", university);
+		Department d3 = new Department("IM", university);
 		Department savedDep1 = dbTesting.inTransaction(() -> dao.persist(d1));
 		Department savedDep2 = dbTesting.inTransaction(() -> dao.persist(d2));
 		Department savedDep3 = dbTesting.inTransaction(() -> dao.persist(d3));
@@ -99,9 +100,9 @@ public class DepartmentDAOTest {
 	@Test
 	public void testDeleteDepartment() {
 
-		Department d1 = new Department("IC");
-		Department d2 = new Department("IF");
-		Department d3 = new Department("IM");
+		Department d1 = new Department("IC", university);
+		Department d2 = new Department("IF", university);
+		Department d3 = new Department("IM", university);
 
 		Department savedDep1 = dbTesting.inTransaction(() -> dao.persist(d1));
 		Department savedDep2 = dbTesting.inTransaction(() -> dao.persist(d2));
@@ -115,5 +116,5 @@ public class DepartmentDAOTest {
 		assertThat(dao.findAll(), not(hasItem(deletedDep3)));
 
 	}
-	*/
+	
 }

@@ -33,7 +33,7 @@ public class Enrollment {
 	
 	@NotNull
 	@Column(unique = true)
-	private Long number;
+	private int number;
 
 	@ManyToOne
 	private Course course;
@@ -53,11 +53,16 @@ public class Enrollment {
 	@ManyToMany(mappedBy = "enrollments")
 	private List<Subject> currentSubjects;
 
-	public Enrollment(Student student) {
+	public Enrollment(Student student, int number) {
 		this.student = student;
+		this.number = number;
 	}
+	/*
 
 	public String addSubject(Subject subject) {
+		if(!subject.verifyStudentHasRequiredCredits(this)) {
+			return "STUDENT DOESN'T HAVE CREDITS ENOUGH";
+		}
 		if(this.completedSubjects.contains(subject)) {
 			return "COMPLETED_SUBJECT";
 		}
@@ -67,7 +72,7 @@ public class Enrollment {
 		this.currentSubjects.add(subject);
 		return "SUCESS";
 	}
-
+*/
 	public boolean completeSubject(Subject subject) {
 		if (this.currentSubjects.contains(subject)) {
 			int credits = this.student.getCredits() + subject.getCredits();

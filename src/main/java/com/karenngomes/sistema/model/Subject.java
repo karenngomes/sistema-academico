@@ -32,15 +32,17 @@ import lombok.Setter;
 @EqualsAndHashCode(of = { "id" })
 @RequiredArgsConstructor(access = AccessLevel.PROTECTED)
 public class Subject {
-
+	
+	
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
-	@NotNull
+	@NotNull(message = "Name can't be null")
 	private String name;
 
-	@NotNull
+	@NotNull(message = "Code can't be null")
 	@Column(unique = true)
 	private String code;
 
@@ -52,7 +54,7 @@ public class Subject {
 	@JsonIgnore
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Course course;
-
+	
 	@ManyToOne
 	private Professor professor;
 
@@ -60,47 +62,25 @@ public class Subject {
 	@JoinTable(name = "required_subjects", joinColumns = @JoinColumn(name = "subject_id"), inverseJoinColumns = @JoinColumn(name = "required_subjects_id"))
 	private List<Subject> requiredSubjects = new ArrayList<Subject>();
 
-	// @ElementCollection
-	// List<String> requiredSubjects;
+
+	//private List<Enrollment> completedStudents = new ArrayList<Enrollment>();
+
+	//@ManyToMany
+	// private List<Enrollment> enrollments = new ArrayList<Enrollment>();
 
 	/*
-	 * @ElementCollection List<Long> completedStudents;
-	 */
-
-	@ManyToMany
-	/*
-	 * @JoinTable( name = "completed_students", joinColumns = @JoinColumn(name =
-	 * "subject_id"), inverseJoinColumns = @JoinColumn(name = "enrollment_id"))
-	 */
-	private List<Enrollment> completedStudents = new ArrayList<Enrollment>();
-
-	@ManyToMany
-	private List<Enrollment> enrollments = new ArrayList<Enrollment>();
-
-	/*
-	 * public Subject(String name, String code, AcademicTypes type, Integer credits,
-	 * Integer requiredCredits, List<String> requiredDisciplines) { this.name =
-	 * name; this.code = code; this.type = type; this.credits = credits != null ?
-	 * credits : 0; this.requiredCredits = requiredCredits != null ? requiredCredits
-	 * : 0; this.requiredSubjects = requiredSubjects != null ? requiredSubjects :
-	 * new ArrayList<>(); this.students = new ArrayList<>(); }
-	 */
+	public boolean verifyStudentHasRequiredCredits(Enrollment enrollment) {
+		return enrollment.getStudent().getCredits() >= this.requiredCredits;
+	}
+	
 	public boolean verifyStudentHasRequiredSubject(Enrollment enrollment) {
 		return enrollment.getCompletedSubjects().containsAll(requiredSubjects);
+	}*/
+	
+	public Subject(String name, String code, AcademicTypes type) {
+		this.name = name;
+		this.code = code;
+		this.type = type;
 	}
-
-	/*
-	 * public boolean addCompletedEnrollment(Enrollment enrollment) {
-	 * if(!this.completedStudents.contains(enrollment.getId())) return
-	 * this.students.add(enrollment.getId()); return false; }
-	 * 
-	 * 
-	 * public boolean removeStudent(Enrollment enrollment) { boolean isDeleted =
-	 * this.students.remove(enrollment.getId());
-	 * 
-	 * if(isDeleted) this.completedStudents.add(enrollment.getId());
-	 * 
-	 * return isDeleted; }
-	 */
 
 }

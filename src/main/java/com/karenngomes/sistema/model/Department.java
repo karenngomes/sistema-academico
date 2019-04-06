@@ -25,7 +25,19 @@ import lombok.Setter;
 @EqualsAndHashCode(of = {"id"})
 @RequiredArgsConstructor(access = AccessLevel.PROTECTED)
 public class Department {
-    @Id
+    public Department(String name) {
+		// TODO Auto-generated constructor stub
+    	this.name = name;
+	}
+
+	public Department(String name, University university) {
+		// TODO Auto-generated constructor stub
+		this.name = name;
+		this.university = university;
+	}
+	
+
+	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 

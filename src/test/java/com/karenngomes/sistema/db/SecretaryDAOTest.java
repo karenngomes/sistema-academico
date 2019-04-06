@@ -45,32 +45,6 @@ public class SecretaryDAOTest {
 		dao = new SecretaryDAO(dbTesting.getSessionFactory());
 	}
 	
-	@Test
-	public void testEquals() {
-		
-		AcademicTypes degreeLevel = AcademicTypes.UNDERGRADUATE;
-
-		Secretary secretary = new Secretary("Undergraduate secretary", degreeLevel);
-
-		Course course1 = new Course("Computer science", degreeLevel);
-		Course course2 = new Course("Computer engineering", degreeLevel);
-/*
-		secretary.setCourse(course1);
-		secretary.setCourse(course2);
-
-		dao.persist(secretary);
-
-		Secretary secretary2 = secretary;
-
-		Course course3 = new Course("Information Systems", degreeLevel);
-		
-		secretary2.setCourse(course3);
-		
-		dao.persist(secretary2);
-		
-		assertTrue(secretary.equals(secretary2));
-		*/
-	}
 	
 	@Test
 	public void testCreate() {
@@ -108,10 +82,6 @@ public class SecretaryDAOTest {
 		Secretary savedSecretary1 = dbTesting.inTransaction(() -> dao.persist(s1));
 		Secretary savedSecretary2 = dbTesting.inTransaction(() -> dao.persist(s2));
 		Secretary savedSecretary3 = dbTesting.inTransaction(() -> dao.persist(s3));
-
-		System.out.println(s1.getId());
-		System.out.println(dao.getById(s1.getId()));
-		System.out.println(savedSecretary1);
 
 		assertEquals(savedSecretary1.getId(), s1.getId());
 
