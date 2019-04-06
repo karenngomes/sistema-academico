@@ -5,7 +5,14 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
+import javax.persistence.CascadeType;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -13,9 +20,11 @@ import javax.persistence.Entity;
 public class Student extends Person {
     @Setter
     private Integer credits = 0;
-
     
-    public Student(String firstName, String lastName) {
+    // @ElementCollection
+    // private List<String> completedSubjects = new ArrayList<String>();
+    
+    public Student(String firstName, String lastName, Integer credits, List<Subject> completedSubjects) {
     	this.credits = credits != null ? credits : 0;
     }
 

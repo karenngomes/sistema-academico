@@ -7,6 +7,8 @@ import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
 
 import com.karenngomes.sistema.model.Course;
+import com.karenngomes.sistema.model.Department;
+import com.karenngomes.sistema.model.Secretary;
 
 import io.dropwizard.hibernate.AbstractDAO;
 import lombok.extern.slf4j.Slf4j;
@@ -23,10 +25,6 @@ public class CourseDAO extends AbstractDAO<Course> {
         log.info("getting course: id={}", id);
         return super.get(id);
     }
-	
-	public Course getById(Long id) {
-		return currentSession().find(Course.class, id);
-	}
     
     public List<Course> findAll() throws HibernateException {
         log.info("getting courses");

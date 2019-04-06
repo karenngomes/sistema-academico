@@ -25,6 +25,7 @@ public class DepartmentTest {
 
 	private static Validator validator;
 	University university = new University("ufal");
+	Secretary secretary = new Secretary("secretaria 1");
 
 	@BeforeClass
 	@BeforeEach

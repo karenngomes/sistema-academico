@@ -10,9 +10,14 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
+import com.karenngomes.sistema.db.CourseDAO;
+import com.karenngomes.sistema.db.SecretaryDAO;
 import com.karenngomes.sistema.db.StudentDAO;
 import com.karenngomes.sistema.db.SubjectDAO;
+import com.karenngomes.sistema.model.Professor;
 import com.karenngomes.sistema.model.Student;
+import com.karenngomes.sistema.model.Subject;
+import com.karenngomes.sistema.utils.AcademicTypes;
 import com.karenngomes.sistema.utils.ErrorMessage;
 
 import io.dropwizard.hibernate.UnitOfWork;

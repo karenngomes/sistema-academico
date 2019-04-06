@@ -54,8 +54,8 @@ public class SecretaryDAOTest {
 		
 		Secretary secretary = new Secretary("Undergraduate secretary", secretaryType);
 		
-		Course course1 = new Course("Computer science", courseType);
-		Course course2 = new Course("Computer engineering", AcademicTypes.POSTGRADUATE);
+		Course course1 = new Course("Computer science", courseType, secretary);
+		Course course2 = new Course("Computer engineering", AcademicTypes.POSTGRADUATE, secretary);
 		/*
 		secretary.setCourse(course1);
 		secretary.setCourse(course2);

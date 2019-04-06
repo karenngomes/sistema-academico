@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotNull;
 
 import com.karenngomes.sistema.utils.AcademicTypes;
 
@@ -30,15 +31,16 @@ public class Secretary {
     @Setter
     private String name;
     private AcademicTypes type; // 1 - undergraduate, 2 - postgraduate
-    
-    @OneToMany(mappedBy="secretary")
-    private List<Course> courses;
-    
+
     public Secretary(String name, AcademicTypes type) {
         this.name = name;
         this.type = type;
-        this.courses = new ArrayList<Course>();
     }
+
+	public Secretary(String name) {
+		// TODO Auto-generated constructor stub
+		this.name = name;
+	}
     
 
 }

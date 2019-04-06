@@ -62,12 +62,12 @@ public class SystemApp extends Application<SystemConfig> {
     	final SubjectDAO subjectDAO = new SubjectDAO(hibernate.getSessionFactory());
     	final CourseDAO courseDAO = new CourseDAO(hibernate.getSessionFactory());
     	
-    	final EnrollmentResources enrollment = new EnrollmentResources(enrollmentDAO, studentDAO, subjectDAO);
+    	final EnrollmentResources enrollment = new EnrollmentResources(enrollmentDAO, courseDAO, studentDAO, subjectDAO);
     	final UniversityResources university = new UniversityResources(universityDAO);
     	final DepartmentResources department = new DepartmentResources(departmentDAO, secretaryDAO);
     	final SecretaryResources secretary = new SecretaryResources(secretaryDAO);
     	final ProfessorResources professor = new ProfessorResources(departmentDAO, professorDAO, subjectDAO);
-    	final CourseResources course = new CourseResources(courseDAO, secretaryDAO);
+    	final CourseResources course = new CourseResources(courseDAO, secretaryDAO, subjectDAO);
     	final SubjectResources subject = new SubjectResources(subjectDAO, professorDAO, courseDAO);
     	final StudentResources student = new StudentResources(studentDAO, subjectDAO);
     	

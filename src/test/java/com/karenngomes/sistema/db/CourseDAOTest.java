@@ -32,6 +32,7 @@ public class CourseDAOTest {
 			.addEntityClass(Course.class).addEntityClass(Professor.class).build();
 
 	private CourseDAO dao;
+	Secretary secretary = new Secretary("secretaria 1");
 
 	@BeforeClass
 	@BeforeEach
@@ -46,7 +47,7 @@ public class CourseDAOTest {
 
 		AcademicTypes degreeLevel = AcademicTypes.UNDERGRADUATE;
 
-		Course c1 = new Course("Computer science", degreeLevel);
+		Course c1 = new Course("Computer science", degreeLevel, secretary);
 
 		Course savedCourse1 = dbTesting.inTransaction(() -> dao.persist(c1));
 
@@ -63,13 +64,13 @@ public class CourseDAOTest {
 
 		AcademicTypes degreeLevel = AcademicTypes.UNDERGRADUATE;
 
-		Course c1 = new Course("Computer science", degreeLevel);
+		Course c1 = new Course("Computer science", degreeLevel, secretary);
 
 		Course savedCourse1 = dbTesting.inTransaction(() -> dao.persist(c1));
 
 		assertEquals(savedCourse1.getId(), c1.getId());
 
-		assertEquals(savedCourse1, dao.getById(c1.getId()));
+		assertEquals(savedCourse1, dao.get(c1.getId()));
 
 	}
 
@@ -80,9 +81,9 @@ public class CourseDAOTest {
 
 		AcademicTypes degreeLevel = AcademicTypes.UNDERGRADUATE;
 
-		Course c1 = new Course("Computer science", degreeLevel);
-		Course c2 = new Course("Computer engineering", degreeLevel);
-		Course c3 = new Course("Information Systems", degreeLevel);
+		Course c1 = new Course("Computer science", degreeLevel, secretary);
+		Course c2 = new Course("Computer engineering", degreeLevel, secretary);
+		Course c3 = new Course("Information Systems", degreeLevel, secretary);
 
 		Course savedCourse1 = dbTesting.inTransaction(() -> dao.persist(c1));
 		Course savedCourse2 = dbTesting.inTransaction(() -> dao.persist(c2));
@@ -92,46 +93,5 @@ public class CourseDAOTest {
 
 	}
 
-	@Test
-	public void testDeleteCourse() {
-
-		AcademicTypes degreeLevel = AcademicTypes.UNDERGRADUATE;
-
-		Course c1 = new Course("Computer science", degreeLevel);
-		Course c2 = new Course("Computer engineering", degreeLevel);
-		Course c3 = new Course("Information Systems", degreeLevel);
-
-		Course savedCourse1 = dbTesting.inTransaction(() -> dao.persist(c1));
-		Course savedCourse2 = dbTesting.inTransaction(() -> dao.persist(c2));
-		Course savedCourse3 = dbTesting.inTransaction(() -> dao.persist(c3));
-
-		assertEquals(3, dao.findAll().size());
-
-		Course deletedDep3 = dao.delete(c3);
-
-		assertEquals(2, dao.findAll().size());
-		assertThat(dao.findAll(), not(hasItem(deletedDep3)));
-
-	}
-	
-	@Test
-	public void testDeleteCourse002() {
-		AcademicTypes degreeLevel = AcademicTypes.UNDERGRADUATE;
-
-		Course c1 = new Course("Computer science", degreeLevel);
-		Course c2 = new Course("Computer engineering", degreeLevel);
-		Course c3 = new Course("Information Systems", degreeLevel);
-
-		Course savedCourse1 = dbTesting.inTransaction(() -> dao.persist(c1));
-		Course savedCourse2 = dbTesting.inTransaction(() -> dao.persist(c2));
-		Course savedCourse3 = dbTesting.inTransaction(() -> dao.persist(c3));
-		
-		dao.delete(c1);
-		dao.delete(c2);
-		dao.delete(c3);
-		
-		assertTrue(dao.findAll().isEmpty());
-		assertNull(dao.getById(savedCourse1.getId()));
-	}
 
 }
