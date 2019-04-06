@@ -1,5 +1,8 @@
 package com.karenngomes.sistema.resources;
 
+import com.sun.jersey.test.framework.JerseyTest;
+
+/*
 import static org.junit.Assert.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -44,8 +47,10 @@ import com.karenngomes.sistema.model.University;
 import io.dropwizard.hibernate.UnitOfWork;
 import io.dropwizard.jackson.Jackson;
 
+*/
 public class UniversityResourcesTest extends JerseyTest  {
 	
+	/*
 	private static final ObjectMapper MAPPER = Jackson.newObjectMapper();
 	
 	
@@ -63,32 +68,32 @@ public class UniversityResourcesTest extends JerseyTest  {
         target = c.target(Main.BASE_URI);
         System.out.println("aqui?");
     }
- /*
+ 
     @After
     public void tearDown() throws Exception {
         server.shutdownNow();
     }
-    */
+    
     @Override
     protected Application configure() {
         return new ResourceConfig().register(UniversityResources.class).register(JacksonFeatures.class);
     }
  
 	
-	/*
+	
 	@Override
     protected Application configure() {
 		enable(TestProperties.LOG_TRAFFIC);
         enable(TestProperties.DUMP_ENTITY);	
         return new ResourceConfig(UniversityResources.class);
     }
-	*/
+	
 	@Test
 	public void test001()  {
 		// University un = new University("ufal");
-		/*
-		Response output = target.path("university").request().post(Entity.entity(un, MediaType.APPLICATION_JSON));
-		*/
+	
+		// Response output = target.path("university").request().post(Entity.entity(un, MediaType.APPLICATION_JSON));
+		
 		System.out.println("chegou");
 		//try {
 			
@@ -99,10 +104,10 @@ public class UniversityResourcesTest extends JerseyTest  {
 		//}
 		System.out.println("aa");
 		//assertEquals("oi", "oi");
-		/*
-        assertEquals("should return status 200", 200, output.getStatus());
-        assertNotNull("Should return list", output.getEntity());
-        */
+		
+        //assertEquals("should return status 200", 200, output.getStatus());
+        //assertNotNull("Should return list", output.getEntity());
+      
 	}
-	
+	*/
 }
