@@ -11,16 +11,8 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
-import com.karenngomes.sistema.db.DepartmentDAO;
-import com.karenngomes.sistema.db.EnrollmentDAO;
-import com.karenngomes.sistema.db.ProfessorDAO;
-import com.karenngomes.sistema.db.StudentDAO;
-import com.karenngomes.sistema.db.SubjectDAO;
-import com.karenngomes.sistema.model.Department;
-import com.karenngomes.sistema.model.Enrollment;
-import com.karenngomes.sistema.model.Professor;
-import com.karenngomes.sistema.model.Student;
-import com.karenngomes.sistema.model.Subject;
+import com.karenngomes.sistema.db.*;
+import com.karenngomes.sistema.model.*;
 import com.karenngomes.sistema.utils.AcademicTypes;
 import com.karenngomes.sistema.utils.ErrorMessage;
 
@@ -32,19 +24,31 @@ import lombok.AllArgsConstructor;
 @Produces(MediaType.APPLICATION_JSON)
 public class EnrollmentResources {
 	EnrollmentDAO enrollmentDAO;
+	CourseDAO courseDAO;
 	StudentDAO studentDAO;
 	SubjectDAO subjectDAO;
 
 	@GET
 	@UnitOfWork
 	public Response getAll() {
-
 		return Response.ok(enrollmentDAO.findAll()).build();
 	}
 
 	@POST
 	@UnitOfWork
 	public Response createEnrollment(Enrollment e) {
+		Course course = courseDAO.get(e.getCourse().getId());
+		Student student = studentDAO.get(e.getStudent().getId());
+
+		if(course == null)
+			return Response.status(Status.NOT_FOUND).entity(new ErrorMessage("Curso não encontrado")).build();
+
+		if(student == null)
+			return Response.status(Status.NOT_FOUND).entity(new ErrorMessage("Estudante não encontrado")).build();
+
+		e.setCourse(course);
+		e.setStudent(student);
+
 		return Response.ok(enrollmentDAO.persist(e)).build();
 	}
 
@@ -56,6 +60,8 @@ public class EnrollmentResources {
 		Subject subject = subjectDAO.get(sId);
 
 		Student student = enrollment.getStudent();
+
+		if(enrollment.getCourse() == null)
 
 		if (!subject.verifyStudentHasRequiredSubject(enrollment)) {
 			return Response.status(Status.FORBIDDEN).entity(new ErrorMessage("tem todas as materias n")).build();
@@ -76,17 +82,16 @@ public class EnrollmentResources {
 			}
 		}
 
-		if (enrollment.addSubject(subject) == "COMPLETED_SUBJECT") {
-			return Response.status(Status.FORBIDDEN).entity(new ErrorMessage("Student already completed this subject"))
-					.build();
+		switch (enrollment.addSubject(subject)) {
+			case"COMPLETED_SUBJECT":
+				return Response.status(Status.FORBIDDEN).entity(new ErrorMessage("Student already completed this subject"))
+						.build();
+			case "CURRENT_SUBJECT":
+				return Response.status(Status.FORBIDDEN).entity(new ErrorMessage("Student already contains this subject"))
+						.build();
+			default:
+				return Response.ok(enrollmentDAO.persist(enrollment)).build();
 		}
-
-		if (enrollment.addSubject(subject) == "CURRENT_SUBJECT") {
-			return Response.status(Status.FORBIDDEN).entity(new ErrorMessage("Student already contains this subject"))
-					.build();
-		}
-		return Response.ok(enrollmentDAO.persist(enrollment)).build();
-
 	}
 
 	@POST
@@ -96,7 +101,7 @@ public class EnrollmentResources {
 		Enrollment enrollment = enrollmentDAO.get(id);
 		Subject subject = subjectDAO.get(sId);
 
-		if (enrollment.completeSubject(subject)) {
+		if (!enrollment.completeSubject(subject)) {
 			return Response.status(Status.FORBIDDEN)
 					.entity(new ErrorMessage("error to try put this subject in completed subject list")).build();
 		}

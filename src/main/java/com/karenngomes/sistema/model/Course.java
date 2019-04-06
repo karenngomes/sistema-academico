@@ -12,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.karenngomes.sistema.utils.AcademicTypes;
@@ -38,17 +39,11 @@ public class Course {
     private AcademicTypes type; //1 - undergraduate, 2 - postgraduate
     
     @Setter
-    @JsonIgnore
     @ManyToOne(cascade = CascadeType.ALL)
+    @NotNull(message = "Secretary can't be null")
     private Secretary secretary;
     
     @OneToMany(mappedBy="course")
     private List<Subject> subjects;
-
-    public Course(String name, AcademicTypes type) {
-        this.name = name;
-        this.type = type;
-        this.subjects = new ArrayList<Subject>();
-    }
 
 }

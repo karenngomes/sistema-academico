@@ -42,5 +42,7 @@ public class Department {
     @NotNull(message = "Must be add a University")
     private University university;
     
-
+    public Department(String name) {
+        this.name = name;
+    }
 }

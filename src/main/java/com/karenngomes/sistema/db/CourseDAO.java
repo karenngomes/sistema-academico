@@ -25,10 +25,6 @@ public class CourseDAO extends AbstractDAO<Course> {
         log.info("getting course: id={}", id);
         return super.get(id);
     }
-	
-	public Course getById(Long id) {
-		return currentSession().find(Course.class, id);
-	}
     
     public List<Course> findAll() throws HibernateException {
         log.info("getting courses");

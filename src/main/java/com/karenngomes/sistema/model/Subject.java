@@ -67,15 +67,6 @@ public class Subject {
 	 * @ElementCollection List<Long> completedStudents;
 	 */
 
-	@ManyToMany
-	/*
-	 * @JoinTable( name = "completed_students", joinColumns = @JoinColumn(name =
-	 * "subject_id"), inverseJoinColumns = @JoinColumn(name = "enrollment_id"))
-	 */
-	private List<Enrollment> completedStudents = new ArrayList<Enrollment>();
-
-	@ManyToMany
-	private List<Enrollment> enrollments = new ArrayList<Enrollment>();
 
 	/*
 	 * public Subject(String name, String code, AcademicTypes type, Integer credits,

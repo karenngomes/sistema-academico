@@ -65,33 +65,7 @@ public class SubjectResources {
 
 		return Response.ok(subjectDAO.persist(subject)).build();
 	}
-	
-	@POST
-	@Path("/{id}/course/{Cid}")
-	@UnitOfWork
-	public Response addSecretary(@PathParam("id") Long id, @PathParam("Cid") Long cId) {
-		
-		Subject subject = subjectDAO.get(id);
-		Course course = courseDAO.get(cId);
 
-		if (course == null) {
-			return Response.status(Status.NOT_FOUND).entity(new ErrorMessage("Course not found")).build();
-		}
-
-		if (subject == null) {
-			return Response.status(Status.NOT_FOUND).entity(new ErrorMessage("Subject not found")).build();
-		}
-		
-		if(subject.getType() != course.getType()) {
-			return Response.status(Status.FORBIDDEN).entity(new ErrorMessage("n sao do msm tipo")).build();
-		} 
-		
-		subject.setCourse(course);
-		
-		return Response.ok(subjectDAO.persist(subject)).build();
-		
-	}
-	
 	@DELETE
 	@Path("/{id}")
 	@UnitOfWork
