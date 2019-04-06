@@ -48,63 +48,6 @@ public class EnrollmentResources {
 		return Response.ok(enrollmentDAO.persist(e)).build();
 	}
 
-	@POST
-	@UnitOfWork
-	@Path("/{id}/add_subject/{sId}")
-	public Response addNewSubject(@PathParam("id") Long id, @PathParam("sId") Long sId) {
-		Enrollment enrollment = enrollmentDAO.get(id);
-		Subject subject = subjectDAO.get(sId);
-
-		Student student = enrollment.getStudent();
-
-		if (!subject.verifyStudentHasRequiredSubject(enrollment)) {
-			return Response.status(Status.FORBIDDEN).entity(new ErrorMessage("tem todas as materias n")).build();
-		}
-
-		if (student.getCredits() != 0 && student.getCredits() < subject.getRequiredCredits()) {
-			return Response.status(Status.FORBIDDEN).entity(new ErrorMessage("tem todos os creditos n")).build();
-		}
-
-		if (enrollment.getCourse() != subject.getCourse()) {
-			if (enrollment.getCourse().getType() == AcademicTypes.UNDERGRADUATE) {
-				if (student.getCredits() < 170)
-					return Response.status(Status.FORBIDDEN)
-							.entity(new ErrorMessage("quer cursar disciplina de pos mas tem menos q 170 creditos"))
-							.build();
-			} else {
-				return Response.status(Status.FORBIDDEN).entity(new ErrorMessage("eh de pos")).build();
-			}
-		}
-
-		if (enrollment.addSubject(subject) == "COMPLETED_SUBJECT") {
-			return Response.status(Status.FORBIDDEN).entity(new ErrorMessage("Student already completed this subject"))
-					.build();
-		}
-
-		if (enrollment.addSubject(subject) == "CURRENT_SUBJECT") {
-			return Response.status(Status.FORBIDDEN).entity(new ErrorMessage("Student already contains this subject"))
-					.build();
-		}
-		return Response.ok(enrollmentDAO.persist(enrollment)).build();
-
-	}
-
-	@POST
-	@UnitOfWork
-	@Path("/{id}/subject/{sId}")
-	public Response addCompletedSubject(@PathParam("id") Long id, @PathParam("sId") Long sId) {
-		Enrollment enrollment = enrollmentDAO.get(id);
-		Subject subject = subjectDAO.get(sId);
-
-		if (enrollment.completeSubject(subject)) {
-			return Response.status(Status.FORBIDDEN)
-					.entity(new ErrorMessage("error to try put this subject in completed subject list")).build();
-		}
-
-		return Response.ok(enrollmentDAO.persist(enrollment)).build();
-
-	}
-
 	@PUT
 	@Path("/{id}/inactive")
 	@UnitOfWork
