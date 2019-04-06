@@ -1,6 +1,5 @@
 package com.karenngomes.sistema.model;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.BeforeClass;
@@ -9,8 +8,6 @@ import org.junit.jupiter.api.Test;
 
 import lombok.SneakyThrows;
 
-import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;

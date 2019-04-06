@@ -8,10 +8,6 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import javax.validation.Validation;
-import javax.validation.Validator;
-import javax.validation.ValidatorFactory;
-
 import org.junit.BeforeClass;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -36,7 +32,6 @@ public class CourseDAOTest {
 			.addEntityClass(Course.class).addEntityClass(Professor.class).build();
 
 	private CourseDAO dao;
-	private static Validator validator;
 
 	@BeforeClass
 	@BeforeEach
@@ -44,8 +39,6 @@ public class CourseDAOTest {
 	public void setUp() {
 		System.out.println("setUp");
 		dao = new CourseDAO(dbTesting.getSessionFactory());
-		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
-		validator = factory.getValidator();
 	}
 
 	@Test
@@ -71,16 +64,8 @@ public class CourseDAOTest {
 		AcademicTypes degreeLevel = AcademicTypes.UNDERGRADUATE;
 
 		Course c1 = new Course("Computer science", degreeLevel);
-		Course c2 = new Course("Computer engineering", degreeLevel);
-		Course c3 = new Course("Information Systems", degreeLevel);
 
 		Course savedCourse1 = dbTesting.inTransaction(() -> dao.persist(c1));
-		Course savedCourse2 = dbTesting.inTransaction(() -> dao.persist(c2));
-		Course savedCourse3 = dbTesting.inTransaction(() -> dao.persist(c3));
-
-		System.out.println(c1.getId());
-		System.out.println(dao.getById(c1.getId()));
-		System.out.println(savedCourse1);
 
 		assertEquals(savedCourse1.getId(), c1.getId());
 

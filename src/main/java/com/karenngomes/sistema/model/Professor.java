@@ -10,7 +10,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @RequiredArgsConstructor
-@EqualsAndHashCode(of = {"id"})
+@EqualsAndHashCode(callSuper=false)
 public class Professor extends Person {
 	private Integer siap;
 

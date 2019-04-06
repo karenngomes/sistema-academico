@@ -4,8 +4,6 @@ import java.io.Serializable;
 import java.util.List;
 
 import com.karenngomes.sistema.model.Student;
-import com.karenngomes.sistema.model.Student;
-import com.karenngomes.sistema.model.Student;
 
 import io.dropwizard.hibernate.AbstractDAO;
 

@@ -1,9 +1,7 @@
 package com.karenngomes.sistema.model;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -18,7 +16,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.karenngomes.sistema.utils.AcademicTypes;
 
 import lombok.AccessLevel;
-// import lombok.EqualsAndHashCode;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

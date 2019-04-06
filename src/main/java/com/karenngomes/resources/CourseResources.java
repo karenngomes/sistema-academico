@@ -13,7 +13,6 @@ import javax.ws.rs.core.Response.Status;
 import com.karenngomes.sistema.db.CourseDAO;
 import com.karenngomes.sistema.db.SecretaryDAO;
 import com.karenngomes.sistema.model.Course;
-import com.karenngomes.sistema.model.Department;
 import com.karenngomes.sistema.model.Secretary;
 import com.karenngomes.sistema.utils.ErrorMessage;
 

@@ -1,6 +1,5 @@
 package com.karenngomes.resources;
 
-import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -11,17 +10,10 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
-import com.karenngomes.sistema.db.DepartmentDAO;
 import com.karenngomes.sistema.db.EnrollmentDAO;
-import com.karenngomes.sistema.db.ProfessorDAO;
 import com.karenngomes.sistema.db.StudentDAO;
 import com.karenngomes.sistema.db.SubjectDAO;
-import com.karenngomes.sistema.model.Department;
 import com.karenngomes.sistema.model.Enrollment;
-import com.karenngomes.sistema.model.Professor;
-import com.karenngomes.sistema.model.Student;
-import com.karenngomes.sistema.model.Subject;
-import com.karenngomes.sistema.utils.AcademicTypes;
 import com.karenngomes.sistema.utils.ErrorMessage;
 
 import io.dropwizard.hibernate.UnitOfWork;

@@ -3,7 +3,6 @@ package com.karenngomes.resources;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -15,9 +14,7 @@ import com.karenngomes.sistema.db.CourseDAO;
 import com.karenngomes.sistema.db.ProfessorDAO;
 import com.karenngomes.sistema.db.SubjectDAO;
 import com.karenngomes.sistema.model.Course;
-import com.karenngomes.sistema.model.Department;
 import com.karenngomes.sistema.model.Professor;
-import com.karenngomes.sistema.model.Subject;
 import com.karenngomes.sistema.model.Subject;
 import com.karenngomes.sistema.utils.ErrorMessage;
 

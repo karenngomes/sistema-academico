@@ -9,13 +9,9 @@ import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import com.karenngomes.sistema.utils.AcademicTypes;
-
 import lombok.AccessLevel;
-// import lombok.EqualsAndHashCode;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
