@@ -64,13 +64,7 @@ public class UniversityDAOTest {
 		University savedUniversity2 = dbTesting.inTransaction(() -> dao.persist(u2));
 		University savedUniversity3 = dbTesting.inTransaction(() -> dao.persist(u3));
 
-		System.out.println(u1.getId());
-		//System.out.println(dao.getById(u1.getId()));
-		System.out.println(savedUniversity1);
-
 		assertEquals(savedUniversity1.getId(), u1.getId());
-
-		//assertEquals(savedUniversity1, dao.getById(u1.getId()));
 
 	}
 
