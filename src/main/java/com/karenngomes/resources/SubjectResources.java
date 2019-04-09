@@ -65,6 +65,55 @@ public class SubjectResources {
 
 		return Response.ok(subjectDAO.persist(subject)).build();
 	}
+	
+	@POST
+	@Path("/{id}/course/{cId}")
+	@UnitOfWork
+	public Response addCourse(@PathParam("id") Long id, @PathParam("cId") Long cId) {
+
+		Subject subject = subjectDAO.get(id);
+		Course course = courseDAO.get(cId);
+
+		if (subject == null) {
+			return Response.status(Status.NOT_FOUND).entity(new ErrorMessage("Subject not found")).build();
+		}
+
+		if (course == null) {
+			return Response.status(Status.NOT_FOUND).entity(new ErrorMessage("Course not found")).build();
+		}
+		
+		if(subject.getType() != course.getType()) {
+			return Response.status(Status.NOT_FOUND).entity(new ErrorMessage("Subject and course aren't the same type")).build();
+		}
+
+		subject.setCourse(course);
+
+		return Response.ok(subjectDAO.persist(subject)).build();
+	}
+	
+	@POST
+	@Path("/{id}/add_required_subject/{sId}")
+	@UnitOfWork
+	public Response addRequiredSubject(@PathParam("id") Long id, @PathParam("sId") Long sId) {
+
+		Subject subject = subjectDAO.get(id);
+		Subject requiredSubject = subjectDAO.get(sId);
+
+		if (subject == null) {
+			return Response.status(Status.NOT_FOUND).entity(new ErrorMessage("Subject not found")).build();
+		}
+
+		if (requiredSubject == null) {
+			return Response.status(Status.NOT_FOUND).entity(new ErrorMessage("Required subject not found")).build();
+		}
+
+		if(!subject.addRequiredSubject(requiredSubject)) {
+			return Response.status(Status.NOT_FOUND).entity(new ErrorMessage("Required subject already is a required subject")).build();
+		}
+		
+
+		return Response.ok(subjectDAO.persist(subject)).build();
+	}
 
 	@DELETE
 	@Path("/{id}")

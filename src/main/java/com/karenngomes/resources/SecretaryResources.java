@@ -41,7 +41,7 @@ public class SecretaryResources {
 
 		Secretary secretary = secretaryDAO.get(id);
 		if (secretary == null) {
-			return Response.status(Status.NOT_FOUND).entity(new ErrorMessage("University not found")).build();
+			return Response.status(Status.NOT_FOUND).entity(new ErrorMessage("Secretary not found")).build();
 		}
 
 		return Response.ok(secretaryDAO.get(id)).build();

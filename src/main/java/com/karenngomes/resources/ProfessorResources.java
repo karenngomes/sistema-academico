@@ -48,7 +48,7 @@ public class ProfessorResources {
 		
 		Professor professor = professorDAO.get(id);
         if (professor == null) { 
-            return Response.status(Status.NOT_FOUND).entity(new ErrorMessage("Department not found")).build();
+            return Response.status(Status.NOT_FOUND).entity(new ErrorMessage("Professor not found")).build();
         }
 		
 		return Response.ok(professorDAO.get(id)).build();	

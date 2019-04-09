@@ -96,7 +96,7 @@ public class EnrollmentResources {
 
 	@POST
 	@UnitOfWork
-	@Path("/{id}/subject/{sId}")
+	@Path("/{id}/complete_subject/{sId}")
 	public Response addCompletedSubject(@PathParam("id") Long id, @PathParam("sId") Long sId) {
 		Enrollment enrollment = enrollmentDAO.get(id);
 		Subject subject = subjectDAO.get(sId);

@@ -59,39 +59,20 @@ public class Subject {
 	@ManyToMany
 	@JoinTable(name = "required_subjects", joinColumns = @JoinColumn(name = "subject_id"), inverseJoinColumns = @JoinColumn(name = "required_subjects_id"))
 	private List<Subject> requiredSubjects = new ArrayList<Subject>();
+	
 
-	// @ElementCollection
-	// List<String> requiredSubjects;
-
-	/*
-	 * @ElementCollection List<Long> completedStudents;
-	 */
-
-
-	/*
-	 * public Subject(String name, String code, AcademicTypes type, Integer credits,
-	 * Integer requiredCredits, List<String> requiredDisciplines) { this.name =
-	 * name; this.code = code; this.type = type; this.credits = credits != null ?
-	 * credits : 0; this.requiredCredits = requiredCredits != null ? requiredCredits
-	 * : 0; this.requiredSubjects = requiredSubjects != null ? requiredSubjects :
-	 * new ArrayList<>(); this.students = new ArrayList<>(); }
-	 */
 	public boolean verifyStudentHasRequiredSubject(Enrollment enrollment) {
 		return enrollment.getCompletedSubjects().containsAll(requiredSubjects);
 	}
+	
+	public boolean addRequiredSubject(Subject subject) {
+		
+		if(!this.requiredSubjects.contains(subject)) {
+			return this.requiredSubjects.add(subject);
+		}
+		
+		return false;
+	}
 
-	/*
-	 * public boolean addCompletedEnrollment(Enrollment enrollment) {
-	 * if(!this.completedStudents.contains(enrollment.getId())) return
-	 * this.students.add(enrollment.getId()); return false; }
-	 * 
-	 * 
-	 * public boolean removeStudent(Enrollment enrollment) { boolean isDeleted =
-	 * this.students.remove(enrollment.getId());
-	 * 
-	 * if(isDeleted) this.completedStudents.add(enrollment.getId());
-	 * 
-	 * return isDeleted; }
-	 */
 
 }

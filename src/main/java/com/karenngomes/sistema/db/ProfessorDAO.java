@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import org.hibernate.HibernateException;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import com.karenngomes.sistema.model.Professor;
@@ -36,27 +37,27 @@ public class ProfessorDAO extends AbstractDAO<Professor> {
     }
 	
 	public void update(Professor p) {
+		Session session = super.currentSession();
 		try {
-			currentSession().getTransaction().begin();
-			p = currentSession().find(Professor.class, p.getId());
-			currentSession().merge(p);
-			currentSession().getTransaction().commit();
+			p = session.find(Professor.class, p.getId());
+			session.merge(p);
+			session.getTransaction().commit();
 		} catch (Exception ex) {
 			ex.printStackTrace();
-			currentSession().getTransaction().rollback();
+			session.getTransaction().rollback();
 		}
 	}
 	
 	public Professor delete(Professor p) {
+		Session session = super.currentSession();
 		try {
-			currentSession().getTransaction().begin();
-			p = currentSession().find(Professor.class, p.getId());
-			currentSession().remove(p);
-			currentSession().getTransaction().commit();
+			p = session.find(Professor.class, p.getId());
+			session.remove(p);
+			session.getTransaction().commit();
 			return p;
 		} catch (Exception ex) {
 			ex.printStackTrace();
-			currentSession().getTransaction().rollback();
+			session.getTransaction().rollback();
 			return null;
 		}
 
