@@ -1,113 +1,82 @@
 package com.karenngomes.sistema.resources;
 
-import com.sun.jersey.test.framework.JerseyTest;
-
-/*
-import static org.junit.Assert.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import java.net.URI;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedHashMap;
 import java.util.List;
 
-import javax.ws.rs.core.Application;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.Status;
-import javax.ws.rs.core.UriBuilder;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
 import javax.ws.rs.client.Client;
-import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
-import javax.ws.rs.client.WebTarget;
-import javax.ws.rs.core.GenericType;
-import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
-import org.glassfish.jersey.server.ResourceConfig;
-import org.glassfish.jersey.test.JerseyTest;
-import org.glassfish.jersey.test.TestProperties;
-// import org.jboss.jandex.Main;
-import org.junit.After;
-import org.junit.Before;
- import org.junit.Test;
-//import org.junit.jupiter.api.Test;
-
-import javax.ws.rs.client.Client;
-import javax.ws.rs.client.ClientBuilder;
-import javax.ws.rs.client.WebTarget;
- 
-import org.glassfish.grizzly.http.server.HttpServer;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.jaxrs.annotation.JacksonFeatures;
-import com.fasterxml.jackson.jaxrs.json.JacksonJaxbJsonProvider;
-import com.karenngomes.resources.UniversityResources;
-import com.karenngomes.sistema.Main;
+import com.karenngomes.resources.CourseResources;
+import com.karenngomes.sistema.SystemApp;
+import com.karenngomes.sistema.SystemConfig;
+import com.karenngomes.sistema.model.Course;
 import com.karenngomes.sistema.model.University;
+import com.karenngomes.sistema.model.Secretary;
+import com.karenngomes.sistema.model.University;
+import com.karenngomes.sistema.utils.AcademicTypes;
 
-import io.dropwizard.hibernate.UnitOfWork;
-import io.dropwizard.jackson.Jackson;
+import io.dropwizard.testing.ResourceHelpers;
+import io.dropwizard.testing.junit5.DropwizardAppExtension;
+import io.dropwizard.testing.junit5.DropwizardExtensionsSupport;
 
-*/
-public class UniversityResourcesTest extends JerseyTest  {
-	
-	/*
-	private static final ObjectMapper MAPPER = Jackson.newObjectMapper();
-	
-	
-	
-	//private HttpServer server;
-    private WebTarget target;
- 
-    @Before
-    public void setUp() throws Exception {
-    	System.out.println("aqui?");
-        //server = Main.startServer();
- 
-        Client c = ClientBuilder.newClient();
-        // c.register(JacksonJaxbJsonProvider.class);
-        target = c.target(Main.BASE_URI);
-        System.out.println("aqui?");
-    }
- 
-    @After
-    public void tearDown() throws Exception {
-        server.shutdownNow();
-    }
-    
-    @Override
-    protected Application configure() {
-        return new ResourceConfig().register(UniversityResources.class).register(JacksonFeatures.class);
-    }
- 
-	
-	
-	@Override
-    protected Application configure() {
-		enable(TestProperties.LOG_TRAFFIC);
-        enable(TestProperties.DUMP_ENTITY);	
-        return new ResourceConfig(UniversityResources.class);
-    }
-	
-	@Test
-	public void test001()  {
-		// University un = new University("ufal");
-	
-		// Response output = target.path("university").request().post(Entity.entity(un, MediaType.APPLICATION_JSON));
-		
-		System.out.println("chegou");
-		//try {
-			
-			University output = target("/university").request().get(University.class);
-		//} catch (Exception e) {
-		//	System.out.println(e.getStackTrace());
-		//	System.out.println(e);
-		//}
-		System.out.println("aa");
-		//assertEquals("oi", "oi");
-		
-        //assertEquals("should return status 200", 200, output.getStatus());
-        //assertNotNull("Should return list", output.getEntity());
-      
+@ExtendWith(DropwizardExtensionsSupport.class)
+public class UniversityResourcesTest {
+	public static DropwizardAppExtension<SystemConfig> RULE = new DropwizardAppExtension<>(SystemApp.class,
+			ResourceHelpers.resourceFilePath("config.yml"));
+	public static Client client;
+
+	@BeforeAll
+	static void setup() {
+		client = RULE.client();
 	}
-	*/
+
+	@Test
+	public void testCreateUniversity() {
+
+		University university = new University("ufal");
+
+		University universityJSON = client.target("http://localhost:8080/university").request()
+				.post(Entity.json(university), University.class);
+
+		assertNotNull(universityJSON, "Object is null");
+
+	}
+
+	@Test
+	public void testGetAUniversity() {
+
+		University university = new University("ufal");
+
+		University universityJSON = client.target("http://localhost:8080/university").request()
+				.post(Entity.json(university), University.class);
+
+		University uJSON = client.target("http://localhost:8080/university/" + universityJSON.getId()).request()
+				.get(University.class);
+
+		assertEquals(universityJSON, uJSON);
+
+	}
+
+	@Test
+	public void testUniversityNotFound() {
+		Response uJSON = client.target("http://localhost:8080/university/138798273023").request().get();
+		
+		String message = uJSON.readEntity(String.class);
+
+		assertEquals("{\"message\":\"University not found\"}", message);
+	}
+
+	
 }

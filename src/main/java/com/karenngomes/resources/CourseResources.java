@@ -36,6 +36,20 @@ public class CourseResources {
 
 		return Response.ok(courseDAO.findAll()).build();
 	}
+	
+	@GET
+	@Path("/{id}")
+	@UnitOfWork
+	
+	public Response getById(@PathParam("id") Long id) {
+		
+		Course course = courseDAO.get(id);
+        if (course == null) { 
+            return Response.status(Status.NOT_FOUND).entity(new ErrorMessage("Course not found")).build();
+        }
+		
+		return Response.ok(courseDAO.get(id)).build();	
+	}
 
 	@POST
 	@UnitOfWork
@@ -47,7 +61,7 @@ public class CourseResources {
 		}
 		
 		if(secretary.getType() != c.getType()) {
-			return Response.status(Status.FORBIDDEN).entity(new ErrorMessage("n sao do msm tipo")).build();
+			return Response.status(Status.FORBIDDEN).entity(new ErrorMessage("Course and secretary aren't the same type")).build();
 		}
 
 		c.setSecretary(secretary);
@@ -71,42 +85,14 @@ public class CourseResources {
 		}
 
 		if(subject.getType() != course.getType()) {
-			return Response.status(Status.FORBIDDEN).entity(new ErrorMessage("n sao do msm tipo")).build();
+			return Response.status(Status.FORBIDDEN).entity(new ErrorMessage("Course and secretary aren't the same type")).build();
 		}
 
-		course.getSubjects().add(subject);
+		// course.getSubjects().add(subject);
 		subject.setCourse(course);
 		subjectDAO.persist(subject);
 		return Response.ok(courseDAO.persist(course)).build();
 	}
-
-	/*
-	@POST
-	@Path("/{id}/secretary/{Sid}")
-	@UnitOfWork
-	public Response addSecretary(@PathParam("id") Long id, @PathParam("Sid") Long sId) {
-		
-		Course course = courseDAO.get(id);
-		Secretary secretary = secretaryDAO.get(sId);
-
-		if (course == null) {
-			return Response.status(Status.NOT_FOUND).entity(new ErrorMessage("Course not found")).build();
-		}
-
-		if (secretary == null) {
-			return Response.status(Status.NOT_FOUND).entity(new ErrorMessage("Secretary not found")).build();
-		}
-		
-		if(secretary.getType() != course.getType()) {
-			return Response.status(Status.FORBIDDEN).entity(new ErrorMessage("n sao do msm tipo")).build();
-		} 
-		
-		course.setSecretary(secretary);
-		
-		return Response.ok(courseDAO.persist(course)).build();
-		
-	}
-	*/
 	
 	@DELETE
 	@Path("/{id}")

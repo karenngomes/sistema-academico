@@ -43,14 +43,15 @@ public class Course {
     @NotNull(message = "Secretary can't be null")
     private Secretary secretary;
     
+    /*
     @OneToMany(mappedBy="course")
     private List<Subject> subjects;
-    
+    */
     public Course(String name, AcademicTypes type, Secretary secretary) {
         this.name = name;
         this.type = type;
         this.secretary = secretary;
-        this.subjects = new ArrayList<Subject>();
+        //this.subjects = new ArrayList<Subject>();
     }
 
 }

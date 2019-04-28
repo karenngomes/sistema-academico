@@ -4,8 +4,10 @@ import java.io.Serializable;
 import java.util.List;
 
 import org.hibernate.HibernateException;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
+import com.karenngomes.sistema.model.Department;
 import com.karenngomes.sistema.model.Subject;
 
 import io.dropwizard.hibernate.AbstractDAO;
@@ -35,30 +37,31 @@ public class SubjectDAO extends AbstractDAO<Subject> {
     }
 
     public void update(Subject s) {
+    	Session session = super.currentSession();
 		try {
-			currentSession().getTransaction().begin();
-			s = currentSession().find(Subject.class, s.getId());
-			currentSession().merge(s);
-			currentSession().getTransaction().commit();
+			session.getTransaction().begin();
+			s = session.find(Subject.class, s.getId());
+			session.remove(s);
+			session.getTransaction().commit();
 		} catch (Exception ex) {
 			ex.printStackTrace();
-			currentSession().getTransaction().rollback();
+			session.getTransaction().rollback();
 		}
 	}
 
 	public Subject delete(Subject s) {
+		Session session = super.currentSession();
 		try {
-			currentSession().getTransaction().begin();
-			s = currentSession().find(Subject.class, s.getId());
-			currentSession().remove(s);
-			currentSession().getTransaction().commit();
+			session.getTransaction().begin();
+			s = session.find(Subject.class, s.getId());
+			session.remove(s);
+			session.getTransaction().commit();
 			return s;
 		} catch (Exception ex) {
 			ex.printStackTrace();
-			currentSession().getTransaction().rollback();
+			session.getTransaction().rollback();
 			return null;
 		}
-
 	}
     
 }

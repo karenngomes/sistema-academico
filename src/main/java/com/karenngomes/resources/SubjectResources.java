@@ -34,8 +34,7 @@ public class SubjectResources {
 
 	@GET
 	@UnitOfWork
-	public Response getAll() {
-		
+	public Response getAll() {		
 		return Response.ok(subjectDAO.findAll()).build();			
 	}
 	

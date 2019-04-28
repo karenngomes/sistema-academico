@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import org.hibernate.HibernateException;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import com.karenngomes.sistema.model.Department;
@@ -39,27 +40,29 @@ public class DepartmentDAO extends AbstractDAO<Department> {
     }
 
 	public void update(Department d) {
+		Session session = super.currentSession();
 		try {
-			currentSession().getTransaction().begin();
-			d = currentSession().find(Department.class, d.getId());
-			currentSession().merge(d);
-			currentSession().getTransaction().commit();
+			session.getTransaction().begin();
+			d = session.find(Department.class, d.getId());
+			session.merge(d);
+			session.getTransaction().commit();
 		} catch (Exception ex) {
 			ex.printStackTrace();
-			currentSession().getTransaction().rollback();
+			session.getTransaction().rollback();
 		}
 	}
 
 	public Department delete(Department d) {
+		Session session = super.currentSession();
 		try {
-			currentSession().getTransaction().begin();
-			d = currentSession().find(Department.class, d.getId());
-			currentSession().remove(d);
-			currentSession().getTransaction().commit();
+			session.getTransaction().begin();
+			d = session.find(Department.class, d.getId());
+			session.remove(d);
+			session.getTransaction().commit();
 			return d;
 		} catch (Exception ex) {
 			ex.printStackTrace();
-			currentSession().getTransaction().rollback();
+			session.getTransaction().rollback();
 			return null;
 		}
 

@@ -4,12 +4,14 @@ import java.io.Serializable;
 import java.util.List;
 
 import com.karenngomes.sistema.model.Student;
+import com.karenngomes.sistema.model.Subject;
 import com.karenngomes.sistema.model.Student;
 import com.karenngomes.sistema.model.Student;
 
 import io.dropwizard.hibernate.AbstractDAO;
 
 import org.hibernate.HibernateException;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import lombok.extern.slf4j.Slf4j;
@@ -38,30 +40,31 @@ public class StudentDAO extends AbstractDAO<Student> {
 	}
     
     public void update(Student s) {
+    	Session session = super.currentSession();
 		try {
-			currentSession().getTransaction().begin();
-			s = currentSession().find(Student.class, s.getId());
-			currentSession().merge(s);
-			currentSession().getTransaction().commit();
+			session.getTransaction().begin();
+			s = session.find(Student.class, s.getId());
+			session.merge(s);
+			session.getTransaction().commit();
 		} catch (Exception ex) {
 			ex.printStackTrace();
-			currentSession().getTransaction().rollback();
+			session.getTransaction().rollback();
 		}
 	}
     
     public Student delete(Student s) {
+    	Session session = super.currentSession();
 		try {
-			currentSession().getTransaction().begin();
-			s = currentSession().find(Student.class, s.getId());
-			currentSession().remove(s);
-			currentSession().getTransaction().commit();
+			session.getTransaction().begin();
+			s = session.find(Student.class, s.getId());
+			session.remove(s);
+			session.getTransaction().commit();
 			return s;
 		} catch (Exception ex) {
 			ex.printStackTrace();
-			currentSession().getTransaction().rollback();
+			session.getTransaction().rollback();
 			return null;
 		}
-
 	}
 
 }

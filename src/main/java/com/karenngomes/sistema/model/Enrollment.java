@@ -51,6 +51,13 @@ public class Enrollment {
 	public Enrollment(Student student) {
 		this.student = student;
 	}
+	
+	public Enrollment(Long number, Course course, Student student) {
+		// TODO Auto-generated constructor stub
+		this.number = number;
+		this.course = course;
+		this.student = student;
+	}
 
 	public String addSubject(Subject subject) {
 		if(this.completedSubjects.contains(subject)) {
@@ -75,5 +82,6 @@ public class Enrollment {
 
 		return false;
 	}
+
 
 }

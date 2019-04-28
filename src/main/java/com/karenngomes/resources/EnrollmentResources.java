@@ -33,6 +33,19 @@ public class EnrollmentResources {
 	public Response getAll() {
 		return Response.ok(enrollmentDAO.findAll()).build();
 	}
+	
+	@GET
+	@Path("/{id}")
+	@UnitOfWork
+	public Response getById(@PathParam("id") Long id) {
+		
+		Enrollment enrollment = enrollmentDAO.get(id);
+        if (enrollment == null) { 
+            return Response.status(Status.NOT_FOUND).entity(new ErrorMessage("Enrollment not found")).build();
+        }
+		
+		return Response.ok(enrollmentDAO.get(id)).build();	
+	}
 
 	@POST
 	@UnitOfWork
@@ -41,10 +54,10 @@ public class EnrollmentResources {
 		Student student = studentDAO.get(e.getStudent().getId());
 
 		if(course == null)
-			return Response.status(Status.NOT_FOUND).entity(new ErrorMessage("Curso não encontrado")).build();
+			return Response.status(Status.NOT_FOUND).entity(new ErrorMessage("Course not found")).build();
 
 		if(student == null)
-			return Response.status(Status.NOT_FOUND).entity(new ErrorMessage("Estudante não encontrado")).build();
+			return Response.status(Status.NOT_FOUND).entity(new ErrorMessage("Student not found")).build();
 
 		e.setCourse(course);
 		e.setStudent(student);
@@ -61,24 +74,22 @@ public class EnrollmentResources {
 
 		Student student = enrollment.getStudent();
 
-		if(enrollment.getCourse() == null)
-
 		if (!subject.verifyStudentHasRequiredSubject(enrollment)) {
-			return Response.status(Status.FORBIDDEN).entity(new ErrorMessage("tem todas as materias n")).build();
+			return Response.status(Status.FORBIDDEN).entity(new ErrorMessage("You don't have all required subjects")).build();
 		}
 
 		if (student.getCredits() != 0 && student.getCredits() < subject.getRequiredCredits()) {
-			return Response.status(Status.FORBIDDEN).entity(new ErrorMessage("tem todos os creditos n")).build();
+			return Response.status(Status.FORBIDDEN).entity(new ErrorMessage("You don't have credtis enough")).build();
 		}
 
 		if (enrollment.getCourse() != subject.getCourse()) {
 			if (enrollment.getCourse().getType() == AcademicTypes.UNDERGRADUATE) {
 				if (student.getCredits() < 170)
 					return Response.status(Status.FORBIDDEN)
-							.entity(new ErrorMessage("quer cursar disciplina de pos mas tem menos q 170 creditos"))
+							.entity(new ErrorMessage("You can't get this postgraduate subject because you have less than 170 credits"))
 							.build();
 			} else {
-				return Response.status(Status.FORBIDDEN).entity(new ErrorMessage("eh de pos")).build();
+				return Response.status(Status.FORBIDDEN).entity(new ErrorMessage("You don't get this subject")).build();
 			}
 		}
 
@@ -103,11 +114,10 @@ public class EnrollmentResources {
 
 		if (!enrollment.completeSubject(subject)) {
 			return Response.status(Status.FORBIDDEN)
-					.entity(new ErrorMessage("error to try put this subject in completed subject list")).build();
+					.entity(new ErrorMessage("Error to try put this subject in completed subject list")).build();
 		}
 
 		return Response.ok(enrollmentDAO.persist(enrollment)).build();
-
 	}
 
 	@PUT

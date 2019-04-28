@@ -4,9 +4,11 @@ import java.io.Serializable;
 import java.util.List;
 
 import org.hibernate.HibernateException;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import com.karenngomes.sistema.model.Secretary;
+import com.karenngomes.sistema.model.Subject;
 
 import io.dropwizard.hibernate.AbstractDAO;
 import lombok.extern.slf4j.Slf4j;
@@ -39,30 +41,31 @@ public class SecretaryDAO extends AbstractDAO<Secretary> {
 	}
 
 	public void update(Secretary s) {
+		Session session = super.currentSession();
 		try {
-			currentSession().getTransaction().begin();
-			s = currentSession().find(Secretary.class, s.getId());
-			currentSession().merge(s);
-			currentSession().getTransaction().commit();
+			session.getTransaction().begin();
+			s = session.find(Secretary.class, s.getId());
+			session.merge(s);
+			session.getTransaction().commit();
 		} catch (Exception ex) {
 			ex.printStackTrace();
-			currentSession().getTransaction().rollback();
+			session.getTransaction().rollback();
 		}
 	}
 
 	public Secretary delete(Secretary s) {
+		Session session = super.currentSession();
 		try {
-			currentSession().getTransaction().begin();
-			s = currentSession().find(Secretary.class, s.getId());
-			currentSession().remove(s);
-			currentSession().getTransaction().commit();
+			session.getTransaction().begin();
+			s = session.find(Secretary.class, s.getId());
+			session.remove(s);
+			session.getTransaction().commit();
 			return s;
 		} catch (Exception ex) {
 			ex.printStackTrace();
-			currentSession().getTransaction().rollback();
+			session.getTransaction().rollback();
 			return null;
 		}
-
 	}
 
 }

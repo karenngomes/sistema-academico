@@ -33,27 +33,18 @@ public class DepartmentTest {
 	public void setUp() {
 		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
 		validator = factory.getValidator();
-		//University university = new University("ufal");
 	}
 
 	@Test
 	public void testDepartmentNameAndUniversity() {
 
 		Department department1 = new Department("t");
-		//department1.setName("d");
 
 		Set<ConstraintViolation<Department>> constraintViolations = validator.validate(department1);
 		
 		assertEquals(2, constraintViolations.size());
 
-		/*while(constraintViolations.iterator().hasNext()) {
-			
-			assertEquals("Must be add a University", constraintViolations.iterator().next().getMessage());
-		}*/
-
 		assertThat( constraintViolations ).extracting( "message" ).containsOnly( "Must be add a University", "The field must be at least 2 characters" );
-		//assertEquals("Must be add a University", constraintViolations.iterator().next().getMessage());
-		//assertEquals("The field must be at least 2 characters", constraintViolations.iterator().next().getMessage());
 
 	}
 	
@@ -61,40 +52,16 @@ public class DepartmentTest {
 	public void testDepartmentName() {
 
 		Department department1 = new Department("t", university);
-		//department1.setName("d");
 
 		Set<ConstraintViolation<Department>> constraintViolations = validator.validate(department1);
 		
 		assertEquals(1, constraintViolations.size());
-
-		/*while(constraintViolations.iterator().hasNext()) {
-			
-			assertEquals("Must be add a University", constraintViolations.iterator().next().getMessage());
-		}*/
-
-		//assertThat( constraintViolations ).extracting( "message" ).containsOnly( "Must be add a University", "The field must be at least 2 characters" );
-		//assertEquals("Must be add a University", constraintViolations.iterator().next().getMessage());
+		
 		assertEquals("The field must be at least 2 characters", constraintViolations.iterator().next().getMessage());
 
 	}
 	
-	/*
-	@Test
-	public void testDepartmentUniversity() {
 
-		Department department1 = new Department(university);
-		//department1.setName("d");
-
-		Set<ConstraintViolation<Department>> constraintViolations = validator.validate(department1);
-		
-		assertEquals(1, constraintViolations.size());
-
-		//assertThat( constraintViolations ).extracting( "message" ).containsOnly( "Must be add a University", "The field must be at least 2 characters" );
-		//assertEquals("Must be add a University", constraintViolations.iterator().next().getMessage());
-		//assertEquals("The field must be at least 2 characters", constraintViolations.iterator().next().getMessage());
-
-	}
-*/
 
 	@Test
 	public void testDepartmentName003() {
